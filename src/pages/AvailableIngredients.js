@@ -28,9 +28,16 @@ export default function AvailableIngredients() {
   };
 
   const updateQuantity = (id, change) => {
-    setIngredients(ingredients.map(ing => 
-      ing.id === id ? { ...ing, quantity: Math.max(0, ing.quantity + change) } : ing
-    ))
+    setIngredients(ingredients.map(ing => {
+      if (ing.id === id) {
+        const newQuantity = ing.quantity + change;
+        if (newQuantity < 1) {
+          return null; // This will be filtered out
+        }
+        return { ...ing, quantity: newQuantity };
+      }
+      return ing;
+    }).filter(Boolean)); // Remove null entries
   }
 
   const editIngredient = (id) => {
