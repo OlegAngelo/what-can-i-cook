@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Plus, Minus, Edit } from 'lucide-react'
+import { Plus, Minus, Edit, Trash2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -36,6 +36,10 @@ export default function AvailableIngredients() {
   const editIngredient = (id) => {
     // Placeholder for edit functionality
     console.log('Edit ingredient', id)
+  }
+
+  const removeIngredient = (id) => {
+    setIngredients(ingredients.filter(ing => ing.id !== id));
   }
 
   return (
@@ -88,6 +92,13 @@ export default function AvailableIngredients() {
                 onClick={() => editIngredient(ingredient.id)}
               >
                 <Edit className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => removeIngredient(ingredient.id)}
+              >
+                <Trash2 className="w-4 h-4" />
               </Button>
             </div>
           </CardContent>
