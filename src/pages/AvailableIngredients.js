@@ -13,13 +13,19 @@ export default function AvailableIngredients() {
     { id: 3, name: 'Eggs', quantity: 3 },
   ])
   const [newIngredient, setNewIngredient] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
 
   const addIngredient = () => {
     if (newIngredient.trim()) {
-      setIngredients([...ingredients, { id: Date.now(), name: newIngredient, quantity: 1 }])
-      setNewIngredient('')
+      if (ingredients.some(ing => ing.name.trim().toLowerCase() === newIngredient.trim().toLowerCase())) {
+        setErrorMessage('This ingredient already exists in the list.');
+      } else {
+        setIngredients([...ingredients, { id: Date.now(), name: newIngredient, quantity: 1 }]);
+        setNewIngredient('');
+        setErrorMessage('');
+      }
     }
-  }
+  };
 
   const updateQuantity = (id, change) => {
     setIngredients(ingredients.map(ing => 
@@ -35,18 +41,26 @@ export default function AvailableIngredients() {
   return (
     <div className="max-w-md mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Ingredient List</h1>
-      <div className="flex gap-2 mb-4">
-        <Input
-          type="text"
-          value={newIngredient}
-          onChange={(e) => setNewIngredient(e.target.value)}
-          placeholder="Enter new ingredient"
-          className="flex-grow"
-        />
-        <Button onClick={addIngredient}>
-          <Plus className="w-4 h-4 mr-2" />
-          Add Ingredient
-        </Button>
+      <div className="flex flex-col gap-2 mb-4">
+        <div className="flex gap-2">
+          <Input
+            type="text"
+            value={newIngredient}
+            onChange={(e) => {
+              setNewIngredient(e.target.value);
+              setErrorMessage('');
+            }}
+            placeholder="Enter new ingredient"
+            className={`flex-grow ${errorMessage ? 'border-red-500' : ''}`}
+          />
+          <Button onClick={addIngredient}>
+            <Plus className="w-4 h-4 mr-2" />
+            Add Ingredient
+          </Button>
+        </div>
+        {errorMessage && (
+          <p className="text-red-500 text-sm">{errorMessage}</p>
+        )}
       </div>
       {ingredients.map((ingredient) => (
         <Card key={ingredient.id} className="mb-2">
