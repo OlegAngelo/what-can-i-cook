@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import { useState } from "react";
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
+import Cookies from 'js-cookie';
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -19,9 +20,12 @@ export default function Home() {
   const handleIngredientInput = (event) => {
     if (event.key === "Enter") {
       if (ingredientValue) {
+        Cookies.set('ingredient', ingredientValue);
+        console.log("Cookie: ",Cookies.get('ingredient'));
         WhatCanICookAPI.getRecipeList(ingredientValue)
-          .then(({ data }) => {
-            console.log("recipe list: ", data)
+          .then(( data ) => {
+            const response = data;
+            console.log("recipe list: ", response)
           })
     
         // Uncomment code below if we want to clear the input after submission
