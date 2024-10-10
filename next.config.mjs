@@ -16,6 +16,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'edamam-product-images.s3.amazonaws.com',
+        port: '',
+        pathname: '/**', // Use '**' to allow any path under the hostname
+      },
+    ],
+  },
 };
 
 export default nextConfig;
