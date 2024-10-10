@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
 import Cookies from 'js-cookie';
 
@@ -16,6 +16,13 @@ const geistMono = localFont({
 
 export default function Home() {
   const [ingredientValue, setIngredientValue] = useState("");
+
+  useEffect(() => {
+    const savedIngredient = Cookies.get('ingredient');
+    if (savedIngredient) {
+      setIngredientValue(savedIngredient);
+    }
+  }, []);
 
   const handleIngredientInput = (event) => {
     if (event.key === "Enter") {
