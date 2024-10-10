@@ -32,8 +32,7 @@ export default function Home() {
   const handleIngredientInput = (event) => {
     if (event.key === "Enter") {
       if (ingredientValue) {
-        Cookies.set('ingredient', ingredientValue);
-        console.log("Cookie: ",Cookies.get('ingredient'));
+        Cookies.set('ingredient', ingredientValue, { expires: 7});
         WhatCanICookAPI.getRecipeList(ingredientValue)
           .then(({ data }) => {
             setRecipes(data);
