@@ -1,7 +1,8 @@
 import localFont from "next/font/local";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
 import RecipesList from '../recipes/list.js';
+import Cookies from 'js-cookie';
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -18,11 +19,20 @@ export default function Home() {
   const [ingredientValue, setIngredientValue] = useState("");
   const [recipes, setRecipes] = useState(null);
 
+  useEffect(() => {
+    const savedIngredient = Cookies.get('ingredient');
+    if (savedIngredient) {
+      setIngredientValue(savedIngredient);
+    }
+  }, []);
+
   const handleIngredientInput = (event) => {
     if (event.key === "Enter") {
       if (ingredientValue) {
+        Cookies.set('ingredient', ingredientValue, { expires: 7});
         WhatCanICookAPI.getRecipeList(ingredientValue)
           .then(({ data }) => {
+            console.log("dylan-fedata", data)
             setRecipes(data);
           })
       }
