@@ -1,11 +1,8 @@
 import localFont from "next/font/local";
 import { useState,useEffect } from "react";
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
-<<<<<<< HEAD
 import RecipesList from '../recipes/list.js';
-=======
 import Cookies from 'js-cookie';
->>>>>>> d490ebd (Initialize cookie storing)
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -35,6 +32,7 @@ export default function Home() {
         Cookies.set('ingredient', ingredientValue, { expires: 7});
         WhatCanICookAPI.getRecipeList(ingredientValue)
           .then(({ data }) => {
+            console.log("dylan-fedata", data)
             setRecipes(data);
           })
       }
