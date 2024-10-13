@@ -18,6 +18,7 @@ const geistMono = localFont({
 export default function Home() {
   const [ingredientValue, setIngredientValue] = useState("");
   const [recipes, setRecipes] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const savedIngredient = Cookies.get('ingredient');
@@ -27,22 +28,28 @@ export default function Home() {
   }, []);
 
   const handleIngredientInput = (event) => {
-    if (event.key === "Enter") {
-      if (ingredientValue) {
-        Cookies.set('ingredient', ingredientValue, { expires: 7});
-        WhatCanICookAPI.getRecipeList(ingredientValue)
-          .then(({ data }) => {
-            console.log("dylan-fedata", data)
-            setRecipes(data);
-          })
-      }
-      else {
-        // Do nothing if no input text
-        console.log("No ingredient inputted!")
-        return;
-      }
+  if (event.key === "Enter") {
+    if (ingredientValue) {
+      Cookies.set('ingredient', ingredientValue, { expires: 7 });
+      WhatCanICookAPI.getRecipeList(ingredientValue)
+        .then((data) => {
+          if (data.error) {
+            setMessage(data.error); // Handle error
+            setRecipes(null); // Clear recipes if there's an error
+          } else if (data.message) {
+            setMessage(data.message); // Handle no recipes found message
+            setRecipes(null); // Clear recipes if no recipes found
+          } else {
+            setMessage(""); // Clear message if recipes found
+            setRecipes(data); // Set the retrieved recipes
+          }
+        });
+    } else {
+      // Do nothing if no ingredient inputted
+      return;
     }
-  };
+  }
+};
 
   return (
     <div
@@ -73,6 +80,13 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      {message && (
+        <div className="row-start-2 text-center text-red-500">
+          {message}
+        </div>
+      )}
+
 
       {recipes && (
         <main className="row-start-2 flex flex-col gap-6 items-center justify-center">
