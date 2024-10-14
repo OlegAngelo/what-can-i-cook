@@ -1,7 +1,7 @@
 import { ClockIcon, BellIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 
-export default function RecipesListItem ({ recipe }) {
+const RecipesListItem = ({ recipe }) => {
     if (!recipe) return <div></div>
 
     return (
@@ -39,3 +39,5 @@ export default function RecipesListItem ({ recipe }) {
         </div>
     )
 }
+
+export default RecipesListItem;

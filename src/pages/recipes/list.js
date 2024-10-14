@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import RecipesListItem from './list-item.js';
 
-export default function RecipesList ({ recipes }) {
+const RecipesList = ({ recipes }) => {
     const renderedList = recipes.map((recipe) => {
         return (
             <Link
@@ -21,3 +21,5 @@ export default function RecipesList ({ recipes }) {
         </div>
     )
 }
+
+export default RecipesList;
