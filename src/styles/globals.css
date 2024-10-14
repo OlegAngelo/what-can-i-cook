@@ -90,3 +90,17 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/GeistVF.woff") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GeistMono";
+  src: url("/fonts/GeistMonoVF.woff") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}

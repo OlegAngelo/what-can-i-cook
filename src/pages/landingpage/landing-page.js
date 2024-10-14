@@ -1,19 +1,8 @@
-import localFont from "next/font/local";
-import { useState,useEffect } from "react";
-import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
+import React, { Suspense, useState, useEffect } from 'react';
 import RecipesList from '../recipes/list.js';
 import Cookies from 'js-cookie';
 
-const geistSans = localFont({
-  src: "../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const HandleIngredientInputComponent = React.lazy(() => import('../function/HandleIngredient.js'));
 
 export default function Home() {
   const [ingredientValue, setIngredientValue] = useState("");
@@ -22,60 +11,34 @@ export default function Home() {
 
   useEffect(() => {
     const savedIngredient = Cookies.get('ingredient');
+
     if (savedIngredient) {
       setIngredientValue(savedIngredient);
     }
   }, []);
 
-  const handleIngredientInput = (event) => {
-  if (event.key === "Enter") {
-    if (ingredientValue) {
-      Cookies.set('ingredient', ingredientValue, { expires: 7 });
-      WhatCanICookAPI.getRecipeList(ingredientValue)
-        .then((data) => {
-          if (data.error) {
-            setMessage(data.error); // Handle error
-            setRecipes(null); // Clear recipes if there's an error
-          } else if (data.message) {
-            setMessage(data.message); // Handle no recipes found message
-            setRecipes(null); // Clear recipes if no recipes found
-          } else {
-            setMessage(""); // Clear message if recipes found
-            setRecipes(data); // Set the retrieved recipes
-          }
-        });
-    } else {
-      // Do nothing if no ingredient inputted
-      setMessage(""); // Clear message if recipes found
-      return;
-    }
-  }
-};
-
   return (
     <div
-      className={`${geistSans.variable} ${geistMono.variable} grid
+      className={`font-geist font-geistMono grid
         ${recipes ? 'grid-rows-[auto_auto_1fr]' : 'grid-rows-[1fr_auto]'}
-        justify-items-center min-h-screen p-4 pb-20 max-2-full overflow-hidden
-        font-[family-name:var(--font-geist-sans)]`}
+        justify-items-center min-h-screen p-4 pb-20 max-w-full overflow-hidden font-geist`}
     >
       <header className={`flex flex-col row-start-1 items-center sm:items-start 
           ${recipes ? 'self-start' : 'self-center'}`}
       >
-        <div className="text-xl text-center sm:text-center font-[family-name:var(--font-geist-mono)]">
+        <div className="text-xl text-center sm:text-center font-geistMono">
           <div className="mb-2">
             I want to cook but my ingredients are only{" "}
             <div className="px-1 py-0.5 rounded font-semibold text-dark inline-block">
               <div className="relative inline-block w-full">
-                <input
-                  className="bg-[var(--background)] placeholder-white border-b-2 border-white focus:outline-none pl-1 w-full"
-                  type="text"
-                  value={ingredientValue}
-                  onChange={(e) => setIngredientValue(e.target.value)}
-                  onKeyDown={handleIngredientInput}
-                  placeholder={`"apple potato carrots"`}
-                />
-                <div className="absolute bottom-0 left-0 w-full border-b-2 border-white pointer-events-none" />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <HandleIngredientInputComponent
+                    ingredientValue={ingredientValue}
+                    setIngredientValue={setIngredientValue} // Pass down setter
+                    setMessage={setMessage}
+                    setRecipes={setRecipes}
+                  />
+                </Suspense>
               </div>
             </div>
           </div>
@@ -88,12 +51,9 @@ export default function Home() {
         </div>
       )}
 
-
       {recipes && (
-        <main className="row-start-2 flex flex-col gap-6 items-center justify-center">
-          <div>
-            <RecipesList recipes={recipes} />
-          </div>
+        <main className="row-start-2 gap-6 items-center justify-center w-full">
+          <RecipesList recipes={recipes} />
         </main>
       )}
     </div>
