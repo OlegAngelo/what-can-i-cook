@@ -26,6 +26,13 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config, { dev }) => {
+    if (!dev) {
+      // Ensure react-refresh is disabled in production
+      config.resolve.alias['react-refresh/runtime'] = false;
+    }
+    return config;
+  },
 };
 
 export default nextConfig;
