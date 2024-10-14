@@ -25,11 +25,9 @@ const WhatCanICookAPI = {
       })
       .catch((error) => {
         // Handle errors from the backend
-        if (error.response) {
-          console.error('Backend returned an error: ', error.response.data.error);
+        if (error.response && process.env.NODE_ENV !== 'production') {
           return { error: error.response.data.error };
         } else {
-          console.error('Network or other error: ', error.message);
           return { error: 'Something went wrong. Please check your connection or try again later.' };
         }
       });
