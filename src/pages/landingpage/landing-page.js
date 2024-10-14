@@ -46,6 +46,7 @@ export default function Home() {
         });
     } else {
       // Do nothing if no ingredient inputted
+      setMessage(""); // Clear message if recipes found
       return;
     }
   }
