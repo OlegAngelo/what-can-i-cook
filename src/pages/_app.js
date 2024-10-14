@@ -6,9 +6,9 @@ const App = ({ Component, pageProps }) => {
     <>
       <Head>
         <title>What Can I Cook?</title>
-        <meta name="description" content="Free Web tutorials"></meta>
+        <meta name="description" content="Find your next meal"></meta>
       </Head>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   )
 }
