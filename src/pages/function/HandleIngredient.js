@@ -52,8 +52,8 @@ const HandleIngredientInput = ({ ingredientValue, setIngredientValue, setMessage
     <>
       <input
         className="relative inline-block placeholder-opacity-50
-                  text-center font-geist bg-[var(--background)]
-                  placeholder-white border-b-2 border-white
+                  font-bold text-center font-geist bg-[var(--background)]
+                  placeholder-[var(--foreground)] border-b-2 border-[var(--foreground)]
                   focus:outline-none w-full max-w-lg"
         type="text"
         value={ingredientValue}
