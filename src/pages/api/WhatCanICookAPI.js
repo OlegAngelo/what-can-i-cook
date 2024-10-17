@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const localApi = "http://localhost:4000";
-const remoteApi = "what-can-i-cook-api.vercel.app";
+const remoteApi = "https://what-can-i-cook-api.onrender.com";
 
 const WhatCanICookAPI = {
 	getRecipeList: async (ingredients) => {
