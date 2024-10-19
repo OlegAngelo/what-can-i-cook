@@ -1,15 +1,7 @@
 import { ClockIcon, BellIcon, LinkIcon, FireIcon,  } from "@heroicons/react/24/outline"; 
-/*
-put whatever u think is usefull
-List of Ingredients
-    use ingredient-lines
-- naka bullet
-for the instructions ang url
-*/
 
 export default function Modal({ isOpen, onClose, recipe }) {
-    if (!isOpen || !recipe) return null; // Render nothing if modal is not open or recipe is not provided
-
+    if (!isOpen || !recipe) return null; 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-black text-white rounded-lg p-8 max-w-lg w-full relative">

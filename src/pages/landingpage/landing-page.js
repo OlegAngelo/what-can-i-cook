@@ -3,6 +3,7 @@ import { useState,useEffect } from "react";
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
 import RecipesList from '../recipes/list.js';
 import Cookies from 'js-cookie';
+
 import Modal from '../recipes/detail.js';
 
 const geistSans = localFont({
@@ -57,7 +58,6 @@ export default function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedRecipe(null); 
-    console.log("Modal isOpen:", false); 
   }
 
   return (

@@ -7,7 +7,7 @@ const WhatCanICookAPI = {
 	getRecipeList: async (ingredients) => {
 		if (ingredients) {
 			return axios
-				.get(`${remoteApi}/`, {
+				.get(`${localApi}/`, {
 					headers: {
 						"Content-Type": "application/json",
 					},

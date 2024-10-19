@@ -1,4 +1,5 @@
 import { ClockIcon, BellIcon } from "@heroicons/react/24/outline"
+
 import Image from "next/image"
 
 const RecipesListItem = ({ recipe }) => {
