@@ -1,6 +1,5 @@
 import React, { startTransition, useCallback } from 'react';
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
-import Cookies from 'js-cookie';
 
 const HandleIngredientInput = ({ ingredientValue, setIngredientValue, setMessage, setRecipes }) => {
   const fetchRecipes = useCallback(async (ingredient) => {
@@ -36,8 +35,7 @@ const HandleIngredientInput = ({ ingredientValue, setIngredientValue, setMessage
       if (event.key === "Enter") {
         startTransition(() => {
           if (ingredientValue) {
-            Cookies.set('ingredient', ingredientValue, { expires: 1 });
-            // Call the memoized fetchRecipes function
+            localStorage.setItem("ingredients", ingredientValue)
             fetchRecipes(ingredientValue);
           } else {
             setMessage("");
