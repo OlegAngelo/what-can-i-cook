@@ -7,7 +7,7 @@ Link for API - [What Can I Cook? API](https://github.com/OlegAngelo/what-can-i-c
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## How to contribute
+## How to run locally
 1. clone repo to your machine
 ```bash
 git clone https://github.com/OlegAngelo/what-can-i-cook.git
@@ -22,23 +22,31 @@ npm install
 ```bash
 npm run dev
 ```
+5. make sure to have the [backend](https://github.com/OlegAngelo/what-can-i-cook-api) running
+6. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to contribute
+1. follow steps from "How to run locally"
+2. create a new branch from `development` branchn with the following template : <name of developer>-<what-are-you-applying>
+example: dylan-converting-cookies-into-localstorage
+```bash
+git fetch
+git checkout development
+git pull
+git checkout -b "<please-use-the-template-above>
+```
+3. upon changes has been applied please `add` changes
+```bash
+git add <file-path>
+```
+4. then `commit` your changes locally
+```bash
+git commit -m "<short description of changes>"
+```
+5. then `push` to origin <branch-name>
+```
+git push origin <current-branch-name>
+```
+6. create a [pull request](https://github.com/OlegAngelo/what-can-i-cook/pulls) here in github
 
-‼️ Before any changes ‼️
-> Please create a new branch with the following format: [name of developer]-[Task]
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
