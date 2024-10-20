@@ -1,6 +1,8 @@
 # What Can I Cook
 For HACKTOBERFEST 2024
 
+We are live - [Live Demo](https://whatcanicookonline.vercel.app/)
+
 Link for API - [What Can I Cook? API](https://github.com/OlegAngelo/what-can-i-cook-api).
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
