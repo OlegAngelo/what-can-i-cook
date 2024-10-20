@@ -91,16 +91,17 @@ body {
   }
 }
 
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/GeistVF.woff") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+/* modal makeup here*/
+
+.modal-scrollbar::-webkit-scrollbar {
+  width: 8px; 
 }
 
-@font-face {
-  font-family: "GeistMono";
-  src: url("/fonts/GeistMonoVF.woff") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5); 
+  border-radius: 4px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5); 
 }
