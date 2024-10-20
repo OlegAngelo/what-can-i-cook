@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 const HandleIngredientInputComponent = React.lazy(() => import('./function/HandleIngredient.js'));
 const LazyRecipesList = React.lazy(() => import('./recipes/list.js'));
@@ -10,8 +10,7 @@ const Home = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const savedIngredient = Cookies.get('ingredient');
-
+    const savedIngredient = localStorage.getItem("ingredients");
     if (savedIngredient) {
       setIngredientValue(savedIngredient);
     }
