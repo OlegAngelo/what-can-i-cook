@@ -3,11 +3,16 @@ import Cookies from 'js-cookie';
 
 const HandleIngredientInputComponent = React.lazy(() => import('./function/HandleIngredient.js'));
 const LazyRecipesList = React.lazy(() => import('./recipes/list.js'));
+const Modal = React.lazy(() => import('./recipes/detail.js'));
 
 const Home = () => {
   const [ingredientValue, setIngredientValue] = useState("");
   const [recipes, setRecipes] = useState(null);
   const [message, setMessage] = useState("");
+
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   useEffect(() => {
     const savedIngredient = Cookies.get('ingredient');
@@ -16,7 +21,17 @@ const Home = () => {
       setIngredientValue(savedIngredient);
     }
   }, []);
+  // Function to open the modal
+  const onRecipeClick = (recipe) => {
+    setSelectedRecipe(recipe);
+    setIsModalOpen(true);
+  };
 
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRecipe(null); 
+  };
   return (
     <div
       className={`font-geist font-geistMono grid
@@ -48,10 +63,13 @@ const Home = () => {
       {recipes && (
         <main className="row-start-2 gap-6 items-center justify-center w-full">
           <Suspense fallback={<div>Loading...</div>}>
-            <LazyRecipesList recipes={recipes}/>
+            <LazyRecipesList recipes={recipes} onRecipeClick={onRecipeClick} />
           </Suspense>
         </main>
       )}
+
+      {/* Modal component */}
+      <Modal isOpen={isModalOpen} onClose={closeModal} recipe={selectedRecipe} />
     </div>
   );
 }
