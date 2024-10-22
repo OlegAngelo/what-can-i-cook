@@ -71,7 +71,7 @@ npm install npm@latest -g
 	```bash
 	git commit -m "<short description of changes>"
 	```
-6. then `push` to origin <branch-name>
+6. then `push` to remote <branch-name>
 	```
 	git push origin <current-branch-name>
 	```
