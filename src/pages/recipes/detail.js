@@ -1,9 +1,9 @@
-import { ClockIcon, BellIcon, LinkIcon, FireIcon,  } from "@heroicons/react/24/outline"; 
+import { ClockIcon, BellIcon, LinkIcon, FireIcon } from "@heroicons/react/24/outline"; 
 
-export default function Modal({ isOpen, onClose, recipe }) {
+const Modal = ({ isOpen, onClose, recipe }) => {
     if (!isOpen || !recipe) return null; 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-90 flex items-center justify-center z-50">
             <div className="bg-black text-white rounded-lg p-8 max-w-lg w-full relative">
                 {/* Close button */}
                 <button
@@ -21,7 +21,6 @@ export default function Modal({ isOpen, onClose, recipe }) {
                 {/* Recipe Name */}
                 <h2 className="text-xl text-center font-bold mb-4">{recipe.name}</h2>
 
-                {/* Cen1 */}
                 <div className="flex justify-center gap-4 mb-4">
                     {/* Total Time */}
                     <div className="flex items-center text-sm">
@@ -38,17 +37,16 @@ export default function Modal({ isOpen, onClose, recipe }) {
                     {/* Calories */}
                     <div className="flex items-center text-sm">
                         <FireIcon className="w-5 h-5 mr-2" />
-                        <span className="italic">{recipe.calowee} kcal</span> 
+                        <span className="italic">{recipe.calorie} kcal</span> 
                     </div>
                 </div>
                 
-                {/* Cen2 */}
                 <div className="flex flex-col items-center text-sm mb-4">
-                    {recipe.dish_type && (
-                        <span className="italic">Dish Type: {recipe.dish_type}</span>
-                    )}
                     {recipe.cuisine_type && (
                         <span className="italic">Cuisine Type: {recipe.cuisine_type}</span>
+                    )}
+                    {recipe.dish_type && (
+                        <span className="italic">{recipe.dish_type}</span>
                     )}
                 </div>
                 
@@ -78,4 +76,6 @@ export default function Modal({ isOpen, onClose, recipe }) {
             </div>
         </div>
     );
-}
+};
+
+export default Modal;
