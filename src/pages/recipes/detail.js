@@ -4,6 +4,7 @@ import { useEffect } from "react";
 const Modal = ({ isOpen, onClose, recipe }) => {
     useEffect(() => {
         if (isOpen) {
+            document.body.style.overflow = 'hidden'; 
             const handleEsc = (event) => {
                 if (event.key === "Escape") {
                     onClose();
@@ -11,11 +12,11 @@ const Modal = ({ isOpen, onClose, recipe }) => {
             };
             window.addEventListener("keydown", handleEsc);
             return () => {
+                document.body.style.overflow = ''; 
                 window.removeEventListener("keydown", handleEsc);
             };
         }
     }, [isOpen, onClose]);
-
     if (!isOpen || !recipe) return null;
 
     return (
@@ -24,19 +25,23 @@ const Modal = ({ isOpen, onClose, recipe }) => {
             role="dialog"
             aria-modal="true"
         >
+            {/*Close Button */}
             <div className="bg-gray-800 text-gray-200 rounded-lg max-w-full sm:max-w-lg w-full max-h-[90vh] overflow-y-auto relative shadow-xl p-6">
-                <button
-                    className="absolute top-2 right-4 text-gray-300 hover:text-gray-100 transition duration-300 text-2xl"
-                    onClick={onClose}
-                    aria-label="Close modal"
-                >
-                    &times;
-                </button>
+                <div className="flex sticky top-0 justify-end z-50">
+                    <button
+                        className="text-gray-300 hover:text-gray-100 transition duration-300 text-2xl"
+                        onClick={onClose}
+                        aria-label="Close modal">
+                            &times;
+                    </button>
+                </div>
 
+                {/*Recipe Name */}
                 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-emerald-400 text-center font-bold mb-4 mt-6">
                     {recipe.name}
                 </h2>
 
+                {/*Recipe Image */}
                 <div className="flex justify-center mb-4 p-4">
                     <img
                         src={recipe.image} 
@@ -45,12 +50,14 @@ const Modal = ({ isOpen, onClose, recipe }) => {
                     />
                 </div>
 
+                {/*TotalTime, MealType, Calorie */}
                 <div className="flex flex-wrap justify-center gap-4 mb-4">
                     <RecipeDetail icon={ClockIcon} text={`${recipe.total_time} mins`} />
                     <RecipeDetail icon={BellIcon} text={recipe.meal_type} />
                     <RecipeDetail icon={FireIcon} text={`${recipe.calorie} kcal`} />
                 </div>
 
+                {/*CusineType & DishType */}
                 <div className="flex flex-col items-center text-sm sm:text-base md:text-lg mb-4 text-center">
                     {recipe.cuisine_type && (
                         <span className="italic text-purple-400 break-words">Cuisine Type: {recipe.cuisine_type}</span>
@@ -60,6 +67,7 @@ const Modal = ({ isOpen, onClose, recipe }) => {
                     )}
                 </div>
 
+                {/*Ingredient Line */}
                 <h3 className="text-md sm:text-lg md:text-xl font-semibold mb-2 border-b border-gray-600 pb-2">Ingredients</h3>
                 <div className="max-h-40 overflow-y-auto mb-4 modal-scrollbar">
                     <ul className="list-disc list-inside">
@@ -69,6 +77,7 @@ const Modal = ({ isOpen, onClose, recipe }) => {
                     </ul>
                 </div>
 
+                {/*Recipe URL*/}
                 <div className="flex justify-center">
                     <a
                         href={recipe.url}
