@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #0A0A0A;
-  --foreground: #ffffff;
+  --background: #FDF5C9;
+  --foreground: #3A2F2A;
+  --card-heading: #f66698;
+  --card-span: #34d399;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0A0A0A;
-    --foreground: #ffffff;
+    --background: #3A2F2A;
+    --foreground: #FDF5C9;
+    --card-heading: #f66698;
+    --card-span: #34d399;
   }
 }
 
@@ -82,15 +86,6 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 @font-face {
   font-family: "Geist";
   src: url("/fonts/GeistVF.woff") format("woff2");
@@ -107,7 +102,7 @@ body {
 
 /* Modal */
 .modal-scrollbar ul li {
-  color: rgba(255, 255, 255, 0.7); 
+  color: var(--foreground);
 }
 
 .modal-scrollbar::-webkit-scrollbar {
@@ -121,6 +116,7 @@ body {
 
 .modal-scrollbar::-webkit-scrollbar-track {
   background: rgba(92, 92, 92, 0.5);
+  border-radius: 4px;
 }
 
 @media (max-width: 640px) {
