@@ -1,7 +1,8 @@
-import React, { startTransition, useCallback } from 'react';
+import React, {useCallback, startTransition } from 'react';
 import WhatCanICookAPI from '../api/WhatCanICookAPI.js';
 
 const HandleIngredientInput = ({ ingredientValue, setIngredientValue, setMessage, setRecipes }) => {
+
   const fetchRecipes = useCallback(async (ingredient) => {
     try {
       const data = await WhatCanICookAPI.getRecipeList(ingredient);
