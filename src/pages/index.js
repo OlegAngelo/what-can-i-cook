@@ -15,6 +15,7 @@ const Home = () => {
 	// Modal states
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedRecipe, setSelectedRecipe] = useState(null);
+	const [easterEggClick, setEasterEggClick] = useState(0);
 
 	useEffect(() => {
 		const savedIngredient = localStorage.getItem("ingredients");
@@ -22,6 +23,22 @@ const Home = () => {
 			setIngredientValue(savedIngredient);
 		}
 	}, []);
+
+	const handleEasterEggClick = () => {
+		setEasterEggClick((prevCount) => prevCount + 1);
+
+		console.log(easterEggClick);
+		// Check if click count reaches 10
+		if (easterEggClick + 1 === 10) {
+			window.open(
+				"https://olegangelo.github.io/easter-egg/portfolio.mp4",
+				"_blank"
+			);
+
+			setEasterEggClick(0);
+		}
+	};
+
 	// Function to open the modal
 	const onRecipeClick = (recipe) => {
 		setSelectedRecipe(recipe);
@@ -33,6 +50,7 @@ const Home = () => {
 		setIsModalOpen(false);
 		setSelectedRecipe(null);
 	};
+
 	return (
 		<div
 			className={`font-geist font-geistMono grid
@@ -44,7 +62,8 @@ const Home = () => {
           ${recipes ? "self-start" : "self-center"}`}
 			>
 				<div className="text-xl text-center font-geistMono mb-2">
-					I want to cook but my ingredients are only{" "}
+					I want to cook but my{" "}
+					<span onClick={handleEasterEggClick}>ingredients</span> are only{" "}
 					<Suspense fallback={<div></div>}>
 						<HandleIngredientInputComponent
 							ingredientValue={ingredientValue}
