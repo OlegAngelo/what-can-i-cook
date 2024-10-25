@@ -27,7 +27,6 @@ const Home = () => {
 	const handleEasterEggClick = () => {
 		setEasterEggClick((prevCount) => prevCount + 1);
 
-		console.log(easterEggClick);
 		// Check if click count reaches 10
 		if (easterEggClick + 1 === 10) {
 			window.open(
