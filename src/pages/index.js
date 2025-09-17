@@ -8,14 +8,30 @@ const LazyRecipesList = React.lazy(() => import("./recipes/list.js"));
 const Modal = React.lazy(() => import("./recipes/detail.js"));
 
 const Home = () => {
+	// State hooks first
 	const [ingredientValue, setIngredientValue] = useState("");
 	const [recipes, setRecipes] = useState(null);
 	const [message, setMessage] = useState("");
-
+	const [loading, setLoading] = useState(false);
 	// Modal states
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedRecipe, setSelectedRecipe] = useState(null);
 	const [easterEggClick, setEasterEggClick] = useState(0);
+	// Food icon loader state
+	const foodIcons = ["🍔", "🍕", "🍣"];
+	const [foodIconIndex, setFoodIconIndex] = useState(0);
+
+	useEffect(() => {
+		let interval;
+		if (loading) {
+			interval = setInterval(() => {
+				setFoodIconIndex((prev) => (prev + 1) % foodIcons.length);
+			}, 1000); // 1s matches spin duration
+		} else {
+			setFoodIconIndex(0);
+		}
+		return () => clearInterval(interval);
+	}, [loading]);
 
 	useEffect(() => {
 		const savedIngredient = localStorage.getItem("ingredients");
@@ -69,16 +85,46 @@ const Home = () => {
 							setIngredientValue={setIngredientValue}
 							setMessage={setMessage}
 							setRecipes={setRecipes}
+							loading={loading}
+							setLoading={setLoading}
 						/>
 					</Suspense>
 				</div>
 			</header>
 
-			{message && (
+			{loading && (
+				<div className="w-full max-w-lg flex flex-col items-center mt-4">
+					{/* Animated spinning food icon loader */}
+					<div className="flex justify-center items-center w-full h-20 mb-2">
+						<span
+							className="text-6xl food-spin scale-125 transition-transform duration-300"
+							style={{ display: "inline-block" }}
+						>
+							{foodIcons[foodIconIndex]}
+						</span>
+					</div>
+					{/* Custom spinning animation for emoji */}
+					<style>{`
+						@keyframes food-spin {
+							0% { transform: rotate(0deg) scale(1.25); }
+							100% { transform: rotate(360deg) scale(1.25); }
+						}
+						.food-spin {
+							animation: food-spin 1s linear infinite;
+							display: inline-block;
+						}
+					`}</style>
+					<div className="text-blue-500 text-lg text-center">
+						Cooking up something tasty... hang tight!
+					</div>
+				</div>
+			)}
+
+			{message && !loading && (
 				<div className="row-start-2 text-center text-red-500">{message}</div>
 			)}
 
-			{recipes && (
+			{recipes && !loading && (
 				<main className="row-start-2 gap-6 items-center justify-center w-full">
 					<Suspense fallback={<div></div>}>
 						<LazyRecipesList recipes={recipes} onRecipeClick={onRecipeClick} />

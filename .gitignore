@@ -20,6 +20,9 @@
 .DS_Store
 *.pem
 
+# npm lock file
+package-lock.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*
